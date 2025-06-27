@@ -1,11 +1,11 @@
 {
-  "name": "Fake Name Generator by Mr. Patrik",
-  "short_name": "Name Gen",
+  "name": "Real Name Indonesia by Mr. Patrik",
+  "short_name": "Name Generator",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#f0f2f5",
   "theme_color": "#007BFF",
-  "description": "Generator nama palsu oleh Mr. Patrik.",
+  "description": "Generator nama Real oleh Mr. Patrik.",
   "icons": [
     {
       "src": "https://i.imgur.com/biPfr2r.png",
