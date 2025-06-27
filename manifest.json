@@ -1,0 +1,21 @@
+{
+  "name": "Fake Name Generator by Mr. Patrik",
+  "short_name": "Name Gen",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#007BFF",
+  "description": "Generator nama palsu oleh Mr. Patrik.",
+  "icons": [
+    {
+      "src": "https://i.imgur.com/biPfr2r.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.imgur.com/biPfr2r.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
