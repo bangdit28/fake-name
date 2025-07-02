@@ -84,8 +84,8 @@
         <fieldset class="gender-selector">
             <legend>Pilih Gender</legend>
             <div class="gender-options">
-                <label for="gender-acak"><input type="radio" id="gender-acak" name="gender" value="acak" checked> Acak</label>
-                <label for="gender-laki"><input type="radio" id="gender-laki" name="gender" value="laki"> Laki-laki</label>
+                <!-- Opsi "Acak" telah dihapus -->
+                <label for="gender-laki"><input type="radio" id="gender-laki" name="gender" value="laki" checked> Laki-laki</label>
                 <label for="gender-perempuan"><input type="radio" id="gender-perempuan" name="gender" value="perempuan"> Perempuan</label>
             </div>
         </fieldset>
@@ -100,94 +100,54 @@
     </div>
     <div id="notifikasi" class="notif">Tersalin ke clipboard!</div>
 
+    <!-- 1. MEMUAT FILE DATABASE NAMA SEBELUM SKRIP UTAMA -->
+    <script src="database-nama.js"></script>
+    
+    <!-- 2. SKRIP UTAMA YANG TELAH DIPERBARUI -->
     <script>
-        const databaseNama = {
-            indonesia: {
-                laki: ["Budi Santoso", "Agus Wijaya", "Joko Susanto", "Eko Prasetyo", "Hendra Gunawan", "Arif Wibowo", "Rizky Firmansyah", "Aditya Nugroho", "Bayu Pratama", "Teguh Hidayat", "Dimas Setiawan", "Fajar Maulana", "Andi Saputra", "Yoga Permana", "David Kurniawan", "Ahmad Syah", "Dadan Ramdanii", "Andi Kusnandi", "Aditya Hikmatiar", "Randy Putra", "Afiw Firmansyah", "Putra Arbani", "Rafil Maulana", "Ujang Kurniawan", "Rama Mahendra", "Angga Saputra", "Sandi Permadi", "Angga Pillian", "Dhika Ahmad Maulana", "Egi Yanuar", "Rizky Maulana", "Bang Aland", "Hiro Sanjaya", "Agung Gunandar", "Alfin Imadudin", "Andre Yanuar Utami", "Paldi Alip Utama", "Ragil Mahardika", "Reza Syahrul Maulana", "Rizal Fahrurozi", "Desta putra aryandi", "Apid Mais", "Irsan Jaelani", "Irman Maulana", "Amar Amrullah", "Yudha Sinayudha", "Andri Ramadhani", "Tazji Adam", "Fadhlir Satriana", "Wawan Kurniawan", "Samsul Maarif", "Irfan Hasbalah", "Nizar Kurniawan", "Andi Nurhidayat", "Ahmad Dani", "Eko Awandi", "Yoga Pratama Syaputra", "Farhan Muhamad", "Fikri Mauludi", "Galih Gumilang", "Padilah Fadry", "Aguz Hendar", "Adi Eka Prasetya", "Wahyu Sudrajat", "Arul Ardiansyah", "Fitra Andika Winata", "Rizal Alfeandra", "Dian Nurhidayat", "Fahmi Lukman", "Zikri Nurjaman", "Muhammad Wildan", "Gilang Purnama", "Teddy Supriyaddy", "Rian Oktapiana", "Rahmat Fauzi", "Sendi Darmawan", "Faisal Ramdani", "Aep Saepulloh", "Hendra Mulyanto", "Irham Ahmad", "Rian Prayogi", "Rendi Eriansyah", "Jujun Junaedi", "Azis Setiawan", "Fauzi Ridwan", "Indra Wiguna", "Ripan Adriansyah", "Raihan Amar Ramadhan", "Samsul Ikhwan", "Gihad Relizia Khotib", "Saepul Kalaider", "Andri Maulana", "Rizky Saputra", "Sansan Mutamar Sidik", "Dani Maulana", "Ade Ilham", "Jajang Herdiansyah", "Dikri Faujan", "Husni Ramdhan", "Febri Pirmansyah", "Ryan Gunawan", "Erwin Maulana", "Andriansyah Hermawan", "Afrizal Pratama", "Rahmat Hidayat", "Gani Abdulrahman", "Farhan Ardiansyah", "Ricky Juliansyah", "Rahman Kautsar", "Dimas Saputra", "Aldy Nugraha", "Sona Maulana", "Fitrah Maulana", "Kakang Rudianto", "Ahmad Jufrianto", "Edo Febriansyah", "Rezaldi Permadi", "Henhen Herdiana", "Zulfikli Lukmansyah", "Dedi Kusnandar", "Adam Alis", "Adzikry Fadillah", "Ryan Kurnia", "Febri Hariyadi", "Dimas Hehanusa", "Ezra Wallian", "Fitrul Rustapa", "Arsan Maulana", "Raufa Aghastya", "Zidan Heryadi", "Alvin Kurniawan", "Deva Budiyana", "Nazriel Firmansyah", "Fikri Firdaus", "Rafi Rizky", "Citra Naswa", "Fazri Agustina", "Aris Sutrisno", "Bagus Cahaya", "Farsya Arkaan", "Izmir Yandrika", "Zeynandra Yushar", "Nazriel Alfaro", "Iqbal Maulana", "Septian Hidayat", "Muhamad Hiro", "Hafizh Rizkianur", "Rizky Ridho", "Muhammad Ferarri", "Akbar Arjunsyah", "Firza Andika", "Rio Fahmi", "Raka Cahyana", "Hanif Sjahbandi", "Aditya Warman", "Syahrian Abimanyu", "Rayhan Hannan", "Doni Alamsyah", "Agi Firmansyah", "Yandi Sofyan"],
-                perempuan: ["Siti Lestari", "Dewi Anggraini", "Ratih Ratnasari", "Ani Puspita", "Indah Permata", "Putri Wulandari", "Citra Handayani", "Wulan Novita", "Rina Agustina", "Fitri Rahmawati", "Dian Utami", "Lia Amelia", "Maya Sari", "Sri Wahyuni", "Annisa Fauziah", "Mega Damayanti", "Risma Julianti", "Windi Herdiyanti", "Salsabilla Novita", "Riantri Nurhasanah", "Desti Risayanti", "Erika Sumartika", "Syifa Novita", "Nina Karlina", "Mafaza Aisyah Nazra", "Nissa Rachmatsari", "Sani Rahmawati", "Windia priliyanti", "Tarisah Sofiah", "Rossa Aulia", "Amelia Rahmawati", "Astri Febryanti", "Idah Saidahh", "Allmy Mila", "Gina Gania", "Nyimassa Turoh", "Mega Lestari", "Rena Sapitri", "Diah Wulandari", "Delia Shelly", "Windy Rahmayanti", "Mah Irsyad", "Neng Ciaa", "Sarah Apriliani", "Mela melani Amalia", "Vira Arsenio", "Fitria Ramdani", "Ririn Supiatin", "Nur Faridah", "Wafik Azizah", "Rahma Dita", "Nova Novilla", "Hasna Permatasari", "Ravena Mutiara Azharr", "Siti Rafa Fatimah", "Imaa Kharismaa", "Sri Aprilia", "Shavira Annisa", "Anisa suliastri", "Intan Monica", "Nikke Ardilla", "Anne Handayani", "Rahma Kania Utami", "Neni Supriatni", "Syifa Hadju", "Siska Rosita", "Luluk Handayani", "Tania Lailandina", "Fiaa Alifaa", "Chaca Salsabilla", "Fitri Andraeni", "Mega Fadila Mutia", "Ernii Nurhasanah", "Utari Kusuma", "Revi Sulastri", "Ani Nuranii", "Linaa Agustina", "Sekah Agustina", "Alin Herlina", "Ismi Napisah", "Wulan Andriani", "Tira Maulidina", "Nesvi Syabantika", "Mega Agustina", "Mega Arsita Putri", "Vera Maulidani", "Chika Jessica", "Yeni Mulia Mustaqimah", "Gita Almidott", "Gita Yulianti", "Melani Ramlan", "Esti Restiani", "Indri Nurahman Fauzi", "Risma Pebrianti", "Mia Maulina", "Salsa Dila Nurlita", "Eva Halipah", "Meyda Siti Apipah", "Julia Rahmawati", "Resti Nursafitri", "Bella Nur anissa", "Nisa Masitoh", "Yuli Julianti", "Devi Sekarwangi", "Riri Ismilah", "Dewi Oktavia", "Ahliyah Sihab", "Ristna Ayulia Agustina", "Asri Noviani", "Fera Abew", "Devi Permatasari", "Anni Mullyani", "Fitri Yuliani Kanaya", "Mayyang Ratnasarii", "Harti Melati", "Fanisa Suliastiani", "Irma Indriani", "Rani Arianty", "Anjani Aprianii", "Reni Rahmaeni", "Divia Febriani", "Ayra Sri Rahayu", "Yeni Rahmawati", "Suci Lestarii", "Dita Aulia", "Fuji Apriliyani", "Restu Nurahim", "Asri Nuryanti", "Intan Andini", "Isna Nurani", "Nurlia Ameliana", "Tenti Ratnaningsih", "Putri Ayu Cahya", "Hilda Dwi Anjani", "Dera Sagita", "Resti Amelia", "Tia Amelia", "Vani apriliaa", "Afni Marfiani", "Nadila Jodi Putri", "Sulistia Insani", "Lisda Nissa Sarhen", "Fikih Dwi Andari", "Hani Agustina", "Tisa fitriaa", "Riska Aisyah", "Audrie Amalia", "Yunita Rahmanafisaa", "Nurfitri Azizah", "Lintang Chandramawati", "Nadhilah Nuramalina", "Kharisma Yusnawati", "Siska Dwi Lestari", "Riska Rahmayani", "Febby Mahendra", "Eka Risma", "Lia Sri Rahayu", "Ginaa Herlina", "Jelita Sandra Putri", "Alfia Fitriani", "Novi Siti Nurmala", "Erni Nurulhusna", "Desy Rahmat Setiawan", "Nispa Nurhamidah", "Nurul Nurliawati", "Rita Rismayanti", "Rida Dian Nurdiana", "Shinta Ratnasari", "Aidina Wiratmadja", "Mima Tsamrotul Fuadah", "Dais Ropul Aropah", "Rani Krismayanti", "Santi Winarti", "Jihan Nabila", "Natasya Amalia Putri", "Sri Wahyuni", "Fitria Nuraini", "Alifa Amaliya", "Tita Rizki Rahmawati", "Anisa Rosalia", "Yayu Sri Rahayu", "Dini Nurdiyanti", "Rida Mardiana", "Usi Indriani", "Dewi Ratnasari", "Inez Agustin", "Sifa Despiana", "Ica Nisa Nurasiah", "Delvi Emon", "Ratih suryani", "Oktaviani Wina", "Via Nuraeni", "Yati Aprianti", "Resaa Safira", "Dewi Nur Alia", "Nisha Nurfitria Amalia", "Pitri Dwi Rahmawati", "Nandiya Juliyanti", "Ratiih Aprillia", "Indriyani gitaa", "Desi Suminar", "Delis Intan Junia", "Rika Sri Wahyuni", "Risma Amalia", "Sari Ningsih", "Devi Fadilah", "Susi Lawati", "Tety Nurhayaty", "Dini Aulia"]
-            },
-            japan: {
-                laki: ["Sato Kenji", "Suzuki Ichiro", "Takahashi Kaito", "Tanaka Haruto", "Watanabe Ren", "Ito Yamato", "Yamamoto Yuma", "Nakamura Sota", "Kobayashi Hiroshi", "Yoshida Riku"],
-                perempuan: ["Sato Yui", "Suzuki Sakura", "Takahashi Aoi", "Tanaka Hina", "Watanabe Rina", "Ito Yuna", "Yamamoto Mei", "Nakamura Misaki", "Kobayashi Momoka", "Yoshida Koharu", "Rumie Iitsuka", "Tamao Murakami", "Kimie Iwata", "Kaoru Yoneda"]
-            },
-            usa: {
-                laki: ["John Smith", "Michael Williams", "James Brown", "Robert Jones", "David Garcia", "William Miller", "Richard Davis", "Joseph Rodriguez", "Thomas Martinez", "Charles Hernandez"],
-                perempuan: ["Mary Smith", "Jennifer Williams", "Linda Brown", "Patricia Jones", "Elizabeth Garcia", "Susan Miller", "Jessica Davis", "Sarah Rodriguez", "Karen Martinez", "Nancy Hernandez"]
-            },
-            korea: {
-                laki: ["Kim Min-jun", "Lee Seo-joon", "Park Do-yun", "Choi Ha-joon", "Jeong Eun-woo", "Kang Ji-ho", "Yoon Ye-jun", "Jang Si-woo", "Han Ju-won", "Im Woo-jin"],
-                perempuan: ["Kim Seo-yeon", "Lee Ji-an", "Park Ha-eun", "Choi Ah-rin", "Jeong Seo-ah", "Kang Ha-yoon", "Yoon A-young", "Jang Ji-woo", "Han Seo-yoon", "Im Si-ah"]
-            }
-        };
-
-        // --- AWAL PERUBAHAN LOGIKA SESUAI PERMINTAAN ---
-
         const regionSelect = document.getElementById('region-select');
         const namaHasilEl = document.getElementById('nama-hasil');
         const generateBtn = document.getElementById('generate-btn');
         const copyBtn = document.getElementById('copy-btn');
         const notifikasiEl = document.getElementById('notifikasi');
 
-        // 'namePools' adalah state untuk menyimpan daftar nama yang tersedia untuk setiap pilihan.
         const namePools = {};
 
-        // Fungsi untuk menginisialisasi atau mereset 'kolam' nama.
         function initializePools() {
             for (const region in databaseNama) {
                 namePools[region] = {
-                    // Salin daftar nama laki-laki
                     laki: [...databaseNama[region].laki],
-                    // Salin daftar nama perempuan
-                    perempuan: [...databaseNama[region].perempuan],
-                    // Gabungkan keduanya untuk pilihan 'acak'
-                    acak: [...databaseNama[region].laki, ...databaseNama[region].perempuan]
+                    perempuan: [...databaseNama[region].perempuan]
+                    // Kategori 'acak' tidak ada lagi
                 };
             }
         }
         
-        // Fungsi untuk mengisi ulang kolam nama yang sudah habis
         function resetNamePool(region, gender) {
             console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`);
-            if (gender === 'acak') {
-                // Jika 'acak', gabungkan lagi dari database utama
-                namePools[region][gender] = [...databaseNama[region].laki, ...databaseNama[region].perempuan];
-            } else {
-                // Jika spesifik, salin lagi dari database utama
-                namePools[region][gender] = [...databaseNama[region][gender]];
-            }
+            // Logika disederhanakan karena 'acak' sudah tidak ada
+            namePools[region][gender] = [...databaseNama[region][gender]];
         }
 
         function generateNama() {
             const region = regionSelect.value;
             const gender = document.querySelector('input[name="gender"]:checked').value;
             
-            // Cek apakah pool untuk pilihan saat ini (misal: 'indonesia.laki') sudah habis
             if (namePools[region][gender].length === 0) {
-                // Jika habis, panggil fungsi untuk mengisi ulang pool tersebut
                 resetNamePool(region, gender);
             }
 
-            // Ambil daftar nama yang tersedia dari pool yang sesuai
             const availableList = namePools[region][gender];
-
-            // Ambil nama secara acak dari daftar yang TERSEDIA
             const randomIndex = Math.floor(Math.random() * availableList.length);
-            
-            // Gunakan `splice` untuk MENGAMBIL nama dari array, sekaligus MENGHAPUSNYA dari pool
             const namaLengkap = availableList.splice(randomIndex, 1)[0];
             
-            // Tampilkan hasilnya di UI
             namaHasilEl.textContent = namaLengkap;
             namaHasilEl.classList.remove('placeholder');
             copyBtn.disabled = false;
         }
         
-        // --- AKHIR PERUBAHAN LOGIKA ---
-
-        // Panggil fungsi inisialisasi saat halaman pertama kali dimuat
         initializePools();
 
-        // Reset tampilan jika region diubah
         regionSelect.addEventListener('change', () => {
             namaHasilEl.textContent = 'HEUNCEUT BEREUM';
             namaHasilEl.classList.add('placeholder');
