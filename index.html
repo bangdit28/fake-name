@@ -25,7 +25,6 @@
         .credit-line { color: var(--secondary-color); margin-top: 5px; margin-bottom: 25px; font-size: 1rem; }
         .author-name { font-family: 'Kaushan Script', cursive; font-size: 1.8rem; color: var(--primary-color); }
         
-        /* === STYLE BARU UNTUK PILIHAN REGION === */
         .region-selector { margin-bottom: 20px; }
         .region-selector label { font-weight: 600; color: var(--primary-color); margin-bottom: 8px; display: block; }
         #region-select {
@@ -56,9 +55,18 @@
         #copy-btn:disabled { background-color: var(--secondary-color); cursor: not-allowed; transform: none; box-shadow: none; }
         .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000; opacity: 0; transition: opacity 0.5s, transform 0.5s; visibility: hidden; }
         .notif.show { opacity: 1; transform: translate(-50%, -10px); visibility: visible; }
-        .footer-note { margin-top: 30px; font-size: 0.95rem; color: var(--secondary-color); }
-        .footer-note a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
-        .footer-note a:hover { text-decoration: underline; }
+        
+        .footer-links { margin-top: 30px; font-size: 0.95rem; color: var(--secondary-color); line-height: 1.6; }
+        .footer-links p { margin: 4px 0; }
+        .footer-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        .footer-links a:hover { text-decoration: underline; }
+
+        /* === STYLE BARU UNTUK JUDUL SARAN === */
+        .footer-title {
+            color: var(--text-color); /* Warna lebih gelap (hitam) */
+            font-weight: 600; /* Font lebih tebal */
+            margin-bottom: 10px; /* Jarak ke bawah lebih besar */
+        }
     </style>
 </head>
 <body>
@@ -70,7 +78,6 @@
         <h1>Nama Palsu Generator</h1>
         <p class="credit-line">by <span class="author-name">Mr. Patrik</span></p>
 
-        <!-- === FITUR BARU: PILIH REGION === -->
         <div class="region-selector">
             <label for="region-select">Pilih Region</label>
             <select id="region-select">
@@ -84,7 +91,6 @@
         <fieldset class="gender-selector">
             <legend>Pilih Gender</legend>
             <div class="gender-options">
-                <!-- Opsi "Acak" telah dihapus -->
                 <label for="gender-laki"><input type="radio" id="gender-laki" name="gender" value="laki" checked> Laki-laki</label>
                 <label for="gender-perempuan"><input type="radio" id="gender-perempuan" name="gender" value="perempuan"> Perempuan</label>
             </div>
@@ -95,15 +101,19 @@
             <button id="copy-btn" disabled>Salin Nama</button>
         </div>
         
-        <p class="footer-note">Cocok untuk Facebook lite versi old 382 - <a href="https://www.mediafire.com/file/nply2o0sfuzyo5w/Facebook_Lite_382.0.0.11.115_apkcombo.com.apk/file" target="_blank">Download di sini</a></p>
+        <div class="footer-links">
+            <!-- Menambahkan class="footer-title" pada paragraf judul -->
+            <p class="footer-title">Saran versi fb anti suspend :</p>
+            <p>Cocok untuk Facebook lite versi old 382 - <a href="https://www.mediafire.com/file/nply2o0sfuzyo5w/Facebook_Lite_382.0.0.11.115_apkcombo.com.apk/file" target="_blank">Download di sini</a></p>
+            <p>Cocok untuk Facebook lite versi old 389 - <a href="#" target="_blank">Download di sini</a></p>
+            <p>Cocok untuk Facebook lite versi old 370 - <a href="#" target="_blank">Download di sini</a></p>
+        </div>
 
     </div>
     <div id="notifikasi" class="notif">Tersalin ke clipboard!</div>
 
-    <!-- 1. MEMUAT FILE DATABASE NAMA SEBELUM SKRIP UTAMA -->
     <script src="database-nama.js"></script>
     
-    <!-- 2. SKRIP UTAMA YANG TELAH DIPERBARUI -->
     <script>
         const regionSelect = document.getElementById('region-select');
         const namaHasilEl = document.getElementById('nama-hasil');
@@ -118,14 +128,12 @@
                 namePools[region] = {
                     laki: [...databaseNama[region].laki],
                     perempuan: [...databaseNama[region].perempuan]
-                    // Kategori 'acak' tidak ada lagi
                 };
             }
         }
         
         function resetNamePool(region, gender) {
             console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`);
-            // Logika disederhanakan karena 'acak' sudah tidak ada
             namePools[region][gender] = [...databaseNama[region][gender]];
         }
 
@@ -159,7 +167,6 @@
         generateBtn.addEventListener('click', generateNama); 
         copyBtn.addEventListener('click', copyNama);
 
-        // KODE PWA
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('Service worker terdaftar.')).catch(err => console.log('Service worker gagal terdaftar:', err)); }); }
     </script>
 </body>
