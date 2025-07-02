@@ -1,9 +1,10 @@
+<!-- START OF FILE index.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nama Palsu Generator by Mr. Patrik</title>
+    <title>Nama Generator Indonesia by Mr. Patrik</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,47 +16,12 @@
     <style>
         :root { --primary-color: #007BFF; --secondary-color: #6c757d; --background-color: #f0f2f5; --card-background: #ffffff; --text-color: #333; --border-radius: 16px; --box-shadow: 0 6px 25px rgba(0, 0, 0, 0.09); }
         
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--background-color);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.75s ease, visibility 0.75s ease;
-        }
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .css-loader {
-            width: 80px;
-            height: 80px;
-            border: 8px solid #e0e0e0;
-            border-top-color: var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 25px;
-        }
-        #preloader h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin: 0;
-        }
-        #loading-text {
-            font-size: 1.2rem;
-            margin-top: 15px;
-            color: var(--secondary-color);
-        }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--background-color); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.75s ease, visibility 0.75s ease; }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .css-loader { width: 80px; height: 80px; border: 8px solid #e0e0e0; border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 25px; }
+        #preloader h2 { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: var(--primary-color); margin: 0; }
+        #loading-text { font-size: 1.2rem; margin-top: 15px; color: var(--secondary-color); }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
         .top-left-credit { position: absolute; top: 20px; left: 20px; font-size: 0.9rem; color: var(--secondary-color); background-color: rgba(255, 255, 255, 0.8); padding: 5px 12px; border-radius: 8px; z-index: 10; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
@@ -65,14 +31,19 @@
         h1 { color: var(--text-color); margin-top: 0; margin-bottom: 0; font-size: 2.2rem; font-weight: 700; }
         .credit-line { color: var(--secondary-color); margin-top: 5px; margin-bottom: 25px; font-size: 1rem; }
         .author-name { font-family: 'Kaushan Script', cursive; font-size: 1.8rem; color: var(--primary-color); }
-        .region-selector { margin-bottom: 20px; }
-        .region-selector label { font-weight: 600; color: var(--primary-color); margin-bottom: 8px; display: block; }
-        #region-select { font-family: 'Poppins', sans-serif; width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; cursor: pointer; background-color: #fff; }
-        .gender-selector { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+        .gender-selector { margin-bottom: 15px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
         .gender-selector legend { font-weight: 600; padding: 0 10px; color: var(--primary-color); }
         .gender-options { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
         .gender-options label { cursor: pointer; font-size: 0.95rem; }
         .gender-options input[type="radio"] { margin-right: 5px; }
+
+        #suku-selector { margin-bottom: 30px; border: none; padding: 0; }
+        #suku-selector legend { display: none; }
+        
+        .suku-options { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .suku-options label { cursor: pointer; font-size: 0.8rem; color: var(--secondary-color); }
+        .suku-options input[type="checkbox"] { margin-right: 3px; transform: scale(0.9); }
+
         .hasil-nama-wrapper { position: relative; margin-bottom: 30px; }
         #nama-hasil { font-size: 1.75rem; font-weight: 600; background-color: #e9ecef; padding: 20px; border-radius: 8px; min-height: 30px; display: flex; justify-content: center; align-items: center; word-break: break-all; transition: background-color 0.3s; }
         .placeholder { color: #999; font-weight: 400; font-style: italic; font-size: 1.5rem; }
@@ -83,8 +54,12 @@
         #copy-btn { background-color: #28a745; color: white; }
         #copy-btn:hover { background-color: #1e7e34; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2); }
         #copy-btn:disabled { background-color: var(--secondary-color); cursor: not-allowed; transform: none; box-shadow: none; }
-        .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000; opacity: 0; transition: opacity 0.5s, transform 0.5s; visibility: hidden; }
+        
+        .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000; opacity: 0; transition: opacity 0.5s, transform 0.5s; visibility: hidden; }
         .notif.show { opacity: 1; transform: translate(-50%, -10px); visibility: visible; }
+        .notif.sukses { background-color: #28a745; }
+        .notif.error { background-color: #dc3545; }
+
         .footer-links { margin-top: 30px; font-size: 0.95rem; color: var(--secondary-color); line-height: 1.6; }
         .footer-links p { margin: 4px 0; }
         .footer-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
@@ -102,24 +77,28 @@
     <div class="top-left-credit">Created by : <span class="creator-name">Hikmah</span></div>
     <div class="container">
         <img src="https://i.imgur.com/biPfr2r.png" alt="Logo Mr. Patrik" class="logo-img">
-        <h1>Nama Palsu Generator</h1>
+        <h1>Nama Generator Indonesia</h1>
         <p class="credit-line">by <span class="author-name">Mr. Patrik</span></p>
-        <div class="region-selector">
-            <label for="region-select">Pilih Region</label>
-            <select id="region-select">
-                <option value="indonesia" selected>Indonesia</option>
-                <option value="japan">Jepang</option>
-                <option value="usa">Amerika Serikat</option>
-                <option value="korea">Korea</option>
-            </select>
-        </div>
+        
         <fieldset class="gender-selector">
             <legend>Pilih Gender</legend>
             <div class="gender-options">
-                <label for="gender-laki"><input type="radio" id="gender-laki" name="gender" value="laki" checked> Laki-laki</label>
-                <label for="gender-perempuan"><input type="radio" id="gender-perempuan" name="gender" value="perempuan"> Perempuan</label>
+                <label><input type="radio" id="gender-laki" name="gender" value="laki" checked> Laki-laki</label>
+                <label><input type="radio" id="gender-perempuan" name="gender" value="perempuan"> Perempuan</label>
             </div>
         </fieldset>
+        
+        <fieldset id="suku-selector">
+            <legend></legend>
+            <div class="suku-options">
+                <label><input type="checkbox" name="suku" value="jawa"> Jawa</label>
+                <label><input type="checkbox" name="suku" value="sunda"> Sunda</label>
+                <label><input type="checkbox" name="suku" value="batak"> Batak</label>
+                <label><input type="checkbox" name="suku" value="maluku"> Maluku</label>
+                <label><input type="checkbox" name="suku" value="genz"> Gen-Z</label>
+            </div>
+        </fieldset>
+
         <div class="hasil-nama-wrapper"><div id="nama-hasil" class="placeholder">...</div></div>
         <div class="buttons">
             <button id="generate-btn">Buat Nama Baru</button>
@@ -133,7 +112,7 @@
             <p>Clone App Pro v3.6.2 Premium - <a href="https://www.mediafire.com/file/zo8sbtx4qf98pqu/Clone+App+Pro+v3.6.2+Premium.apk/file" target="_blank">Download</a></p>
         </div>
     </div>
-    <div id="notifikasi" class="notif">Tersalin ke clipboard!</div>
+    <div id="notifikasi" class="notif"></div>
     <script src="database-nama.js"></script>
     <script>
         window.addEventListener('load', () => {
@@ -149,21 +128,103 @@
                 }
             }, 20);
         });
-        const regionSelect = document.getElementById('region-select');
+
         const namaHasilEl = document.getElementById('nama-hasil');
         const generateBtn = document.getElementById('generate-btn');
         const copyBtn = document.getElementById('copy-btn');
         const notifikasiEl = document.getElementById('notifikasi');
+        
         const namePools = {};
-        function initializePools() { for (const region in databaseNama) { namePools[region] = { laki: [...databaseNama[region].laki], perempuan: [...databaseNama[region].perempuan] }; } }
-        function resetNamePool(region, gender) { console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`); namePools[region][gender] = [...databaseNama[region][gender]]; }
-        function generateNama() { const region = regionSelect.value; const gender = document.querySelector('input[name="gender"]:checked').value; if (namePools[region][gender].length === 0) { resetNamePool(region, gender); } const availableList = namePools[region][gender]; const randomIndex = Math.floor(Math.random() * availableList.length); const namaLengkap = availableList.splice(randomIndex, 1)[0]; namaHasilEl.textContent = namaLengkap; namaHasilEl.classList.remove('placeholder'); copyBtn.disabled = false; }
+
+        function initializePools() {
+            namePools.indonesia = {};
+            for (const suku in databaseNama.indonesia) {
+                namePools.indonesia[suku] = {
+                    laki: [...databaseNama.indonesia[suku].laki],
+                    perempuan: [...databaseNama.indonesia[suku].perempuan]
+                };
+            }
+        }
+        
+        function resetPool(gender, suku) {
+            console.log(`Pool untuk ${suku} - ${gender} habis. Mengisi ulang...`);
+            namePools.indonesia[suku][gender] = [...databaseNama.indonesia[suku][gender]];
+        }
+        
+        function tampilkanNotifikasi(pesan, tipe = 'sukses') {
+            notifikasiEl.textContent = pesan;
+            notifikasiEl.className = 'notif';
+            notifikasiEl.classList.add(tipe, 'show');
+            setTimeout(() => {
+                notifikasiEl.classList.remove('show');
+            }, 3000);
+        }
+        
+        function generateNama() {
+            const checkedSuku = document.querySelectorAll('input[name="suku"]:checked');
+            const checkedCount = checkedSuku.length;
+
+            if (checkedCount === 0) {
+                tampilkanNotifikasi('Silakan pilih satu kategori terlebih dahulu.', 'error');
+                return;
+            }
+
+            if (checkedCount > 1) {
+                tampilkanNotifikasi('Hanya boleh memilih satu kategori.', 'error');
+                return;
+            }
+
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const selectedSuku = checkedSuku[0].value;
+            
+            let namaLengkap = null;
+            const pool = namePools.indonesia[selectedSuku]?.[gender];
+
+            if (pool && pool.length === 0) {
+                resetPool(gender, selectedSuku);
+            }
+            
+            const currentPool = namePools.indonesia[selectedSuku][gender];
+
+            if (currentPool && currentPool.length > 0) {
+                 const randomIndex = Math.floor(Math.random() * currentPool.length);
+                 namaLengkap = currentPool[randomIndex];
+            }
+
+            if (namaLengkap) {
+                namaHasilEl.textContent = namaLengkap;
+                namaHasilEl.classList.remove('placeholder');
+                copyBtn.disabled = false;
+            } else {
+                namaHasilEl.textContent = "Nama tidak ditemukan.";
+                namaHasilEl.classList.add('placeholder');
+                copyBtn.disabled = true;
+            }
+        }
+
         initializePools();
-        regionSelect.addEventListener('change', () => { namaHasilEl.textContent = 'HEUNCEUT BEREUM'; namaHasilEl.classList.add('placeholder'); copyBtn.disabled = true; });
-        function copyNama() { if (copyBtn.disabled) return; navigator.clipboard.writeText(namaHasilEl.textContent).then(() => { notifikasiEl.classList.add('show'); setTimeout(() => { notifikasiEl.classList.remove('show'); }, 2000); }).catch(err => { console.error('Gagal menyalin: ', err); alert('Oops, gagal menyalin nama.'); }); }
-        generateBtn.addEventListener('click', generateNama); 
+
+        function copyNama() {
+            if (copyBtn.disabled) return;
+            navigator.clipboard.writeText(namaHasilEl.textContent).then(() => {
+                tampilkanNotifikasi('Tersalin ke clipboard!', 'sukses');
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+                tampilkanNotifikasi('Oops, gagal menyalin.', 'error');
+            });
+        }
+        
+        generateBtn.addEventListener('click', generateNama);
         copyBtn.addEventListener('click', copyNama);
-        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('Service worker terdaftar.')).catch(err => console.log('Service worker gagal terdaftar:', err)); }); }
+        
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('Service worker terdaftar.'))
+                    .catch(err => console.log('Service worker gagal terdaftar:', err));
+            });
+        }
     </script>
 </body>
 </html>
+<!-- END OF FILE index.html -->
