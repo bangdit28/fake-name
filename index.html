@@ -26,6 +26,28 @@
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
         .top-left-credit { position: absolute; top: 20px; left: 20px; font-size: 0.9rem; color: var(--secondary-color); background-color: rgba(255, 255, 255, 0.8); padding: 5px 12px; border-radius: 8px; z-index: 10; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         .creator-name { font-family: 'Josefin Sans', sans-serif; font-weight: 600; color: var(--primary-color); }
+        
+        /* PERUBAHAN CSS: Menambahkan style untuk tombol musik */
+        .music-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
         .container { background-color: var(--card-background); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; max-width: 550px; width: 100%; }
         .logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--primary-color); }
         h1 { color: var(--text-color); margin-top: 0; margin-bottom: 0; font-size: 2.2rem; font-weight: 700; }
@@ -75,6 +97,10 @@
     </div>
     
     <div class="top-left-credit">Created by : <span class="creator-name">Hikmah</span></div>
+
+    <!-- PERUBAHAN: Menambahkan tombol kontrol musik -->
+    <button id="music-toggle" class="music-toggle-btn">🔇</button>
+    
     <div class="container">
         <img src="https://i.imgur.com/biPfr2r.png" alt="Logo Mr. Patrik" class="logo-img">
         <h1>Nama Generator Indonesia</h1>
@@ -113,6 +139,13 @@
         </div>
     </div>
     <div id="notifikasi" class="notif"></div>
+
+    <!-- PERUBAHAN: Menambahkan elemen audio -->
+    <audio id="background-music" loop>
+        <!-- Anda bisa ganti src dengan link MP3 lain -->
+        <source src="https://www.chosic.com/wp-content/uploads/2021/07/The-Epic-Hero-by-Keys-of-Moon.mp3" type="audio/mpeg">
+    </audio>
+
     <script src="database-nama.js"></script>
     <script>
         window.addEventListener('load', () => {
@@ -127,6 +160,9 @@
                     preloader.classList.add('hidden');
                 }
             }, 20);
+
+            // PERUBAHAN: Memanggil fungsi untuk musik
+            setupMusic();
         });
 
         const namaHasilEl = document.getElementById('nama-hasil');
@@ -224,6 +260,50 @@
                     .catch(err => console.log('Service worker gagal terdaftar:', err));
             });
         }
+        
+        // --- PERUBAHAN: LOGIKA BARU UNTUK MUSIK ---
+        function setupMusic() {
+            const music = document.getElementById('background-music');
+            const musicToggle = document.getElementById('music-toggle');
+            let hasInteracted = false;
+
+            // Fungsi untuk mencoba memutar musik
+            async function playMusic() {
+                try {
+                    await music.play();
+                    musicToggle.textContent = '🔊';
+                } catch (err) {
+                    console.log('Autoplay diblokir, menunggu interaksi pengguna.');
+                    musicToggle.textContent = '🔇';
+                }
+            }
+            
+            // Coba putar musik saat halaman dimuat
+            playMusic();
+            
+            // Logika untuk tombol toggle
+            musicToggle.addEventListener('click', () => {
+                if (music.paused) {
+                    music.play();
+                    musicToggle.textContent = '🔊';
+                } else {
+                    music.pause();
+                    musicToggle.textContent = '🔇';
+                }
+            });
+
+            // Fallback: Jika musik belum pernah diputar, putar saat interaksi pertama
+            function playOnFirstInteraction() {
+                if (!hasInteracted) {
+                    playMusic();
+                    hasInteracted = true;
+                }
+            }
+            
+            generateBtn.addEventListener('click', playOnFirstInteraction);
+            copyBtn.addEventListener('click', playOnFirstInteraction);
+        }
+
     </script>
 </body>
 </html>
