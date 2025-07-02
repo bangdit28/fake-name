@@ -1,3 +1,5 @@
+// --- START OF FILE service-worker.js ---
+
 const CACHE_NAME = 'name-generator-cache-v1';
 const urlsToCache = [
   './generator.html', // File utama
@@ -23,3 +25,4 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+// --- END OF FILE service-worker.js ---
