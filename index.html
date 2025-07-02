@@ -15,7 +15,6 @@
     <style>
         :root { --primary-color: #007BFF; --secondary-color: #6c757d; --background-color: #f0f2f5; --card-background: #ffffff; --text-color: #333; --border-radius: 16px; --box-shadow: 0 6px 25px rgba(0, 0, 0, 0.09); }
         
-        /* === STYLE BARU: PRELOADER / LOADING SCREEN === */
         #preloader {
             position: fixed;
             top: 0;
@@ -34,12 +33,14 @@
             opacity: 0;
             visibility: hidden;
         }
-        .loader-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%; /* Memastikan logo bulat */
-            margin-bottom: 20px;
-            animation: pulse 2s infinite ease-in-out;
+        .css-loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid #e0e0e0;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
         }
         #preloader h2 {
             font-family: 'Poppins', sans-serif;
@@ -47,38 +48,26 @@
             color: var(--primary-color);
             margin: 0;
         }
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 123, 255, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+        #loading-text {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: var(--secondary-color);
         }
-        /* === AKHIR STYLE PRELOADER === */
-
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
 
         body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        
         .top-left-credit { position: absolute; top: 20px; left: 20px; font-size: 0.9rem; color: var(--secondary-color); background-color: rgba(255, 255, 255, 0.8); padding: 5px 12px; border-radius: 8px; z-index: 10; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         .creator-name { font-family: 'Josefin Sans', sans-serif; font-weight: 600; color: var(--primary-color); }
-        
         .container { background-color: var(--card-background); padding: 40px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; max-width: 550px; width: 100%; }
         .logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 3px solid var(--primary-color); }
         h1 { color: var(--text-color); margin-top: 0; margin-bottom: 0; font-size: 2.2rem; font-weight: 700; }
         .credit-line { color: var(--secondary-color); margin-top: 5px; margin-bottom: 25px; font-size: 1rem; }
         .author-name { font-family: 'Kaushan Script', cursive; font-size: 1.8rem; color: var(--primary-color); }
-        
         .region-selector { margin-bottom: 20px; }
         .region-selector label { font-weight: 600; color: var(--primary-color); margin-bottom: 8px; display: block; }
-        #region-select {
-            font-family: 'Poppins', sans-serif;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            background-color: #fff;
-        }
-
+        #region-select { font-family: 'Poppins', sans-serif; width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; cursor: pointer; background-color: #fff; }
         .gender-selector { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
         .gender-selector legend { font-weight: 600; padding: 0 10px; color: var(--primary-color); }
         .gender-options { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
@@ -96,7 +85,6 @@
         #copy-btn:disabled { background-color: var(--secondary-color); cursor: not-allowed; transform: none; box-shadow: none; }
         .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background-color: #28a745; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000; opacity: 0; transition: opacity 0.5s, transform 0.5s; visibility: hidden; }
         .notif.show { opacity: 1; transform: translate(-50%, -10px); visibility: visible; }
-        
         .footer-links { margin-top: 30px; font-size: 0.95rem; color: var(--secondary-color); line-height: 1.6; }
         .footer-links p { margin: 4px 0; }
         .footer-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
@@ -105,21 +93,17 @@
     </style>
 </head>
 <body>
-
-    <!-- === KONTEN BARU: PRELOADER / LOADING SCREEN === -->
     <div id="preloader">
-        <img src="https://i.imgur.com/GgOHn51.png" alt="Loading Logo" class="loader-logo">
+        <div class="css-loader"></div>
         <h2>Name Generator</h2>
+        <p id="loading-text">0%</p>
     </div>
     
     <div class="top-left-credit">Created by : <span class="creator-name">Hikmah</span></div>
-
     <div class="container">
-        <!-- Logo di halaman utama tetap menggunakan yang lama agar ada border biru -->
         <img src="https://i.imgur.com/biPfr2r.png" alt="Logo Mr. Patrik" class="logo-img">
         <h1>Nama Palsu Generator</h1>
         <p class="credit-line">by <span class="author-name">Mr. Patrik</span></p>
-
         <div class="region-selector">
             <label for="region-select">Pilih Region</label>
             <select id="region-select">
@@ -129,7 +113,6 @@
                 <option value="korea">Korea</option>
             </select>
         </div>
-
         <fieldset class="gender-selector">
             <legend>Pilih Gender</legend>
             <div class="gender-options">
@@ -142,82 +125,43 @@
             <button id="generate-btn">Buat Nama Baru</button>
             <button id="copy-btn" disabled>Salin Nama</button>
         </div>
-        
         <div class="footer-links">
             <p class="footer-title">Saran versi fb anti suspend :</p>
             <p>Cocok untuk Facebook lite versi old 382 - <a href="https://www.mediafire.com/file/nply2o0sfuzyo5w/Facebook_Lite_382.0.0.11.115_apkcombo.com.apk/file" target="_blank">Download di sini</a></p>
             <p>Cocok untuk Facebook lite versi old 389 - <a href="#" target="_blank">Download di sini</a></p>
             <p>Cocok untuk Facebook lite versi old 370 - <a href="#" target="_blank">Download di sini</a></p>
         </div>
-
     </div>
     <div id="notifikasi" class="notif">Tersalin ke clipboard!</div>
-
     <script src="database-nama.js"></script>
-    
     <script>
-        // === KODE BARU: LOGIKA PRELOADER ===
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            // Menambahkan jeda sedikit agar animasi terlihat
-            setTimeout(() => {
-                preloader.classList.add('hidden');
-            }, 800); // 800 milidetik = 0.8 detik
+            const loadingText = document.getElementById('loading-text');
+            let i = 0;
+            const interval = setInterval(() => {
+                loadingText.textContent = i + '%';
+                i++;
+                if (i > 100) {
+                    clearInterval(interval);
+                    preloader.classList.add('hidden');
+                }
+            }, 20);
         });
-
-        // --- Kode lama Anda dimulai di sini ---
         const regionSelect = document.getElementById('region-select');
         const namaHasilEl = document.getElementById('nama-hasil');
         const generateBtn = document.getElementById('generate-btn');
         const copyBtn = document.getElementById('copy-btn');
         const notifikasiEl = document.getElementById('notifikasi');
-
         const namePools = {};
-
-        function initializePools() {
-            for (const region in databaseNama) {
-                namePools[region] = {
-                    laki: [...databaseNama[region].laki],
-                    perempuan: [...databaseNama[region].perempuan]
-                };
-            }
-        }
-        
-        function resetNamePool(region, gender) {
-            console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`);
-            namePools[region][gender] = [...databaseNama[region][gender]];
-        }
-
-        function generateNama() {
-            const region = regionSelect.value;
-            const gender = document.querySelector('input[name="gender"]:checked').value;
-            
-            if (namePools[region][gender].length === 0) {
-                resetNamePool(region, gender);
-            }
-
-            const availableList = namePools[region][gender];
-            const randomIndex = Math.floor(Math.random() * availableList.length);
-            const namaLengkap = availableList.splice(randomIndex, 1)[0];
-            
-            namaHasilEl.textContent = namaLengkap;
-            namaHasilEl.classList.remove('placeholder');
-            copyBtn.disabled = false;
-        }
-        
+        function initializePools() { for (const region in databaseNama) { namePools[region] = { laki: [...databaseNama[region].laki], perempuan: [...databaseNama[region].perempuan] }; } }
+        function resetNamePool(region, gender) { console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`); namePools[region][gender] = [...databaseNama[region][gender]]; }
+        function generateNama() { const region = regionSelect.value; const gender = document.querySelector('input[name="gender"]:checked').value; if (namePools[region][gender].length === 0) { resetNamePool(region, gender); } const availableList = namePools[region][gender]; const randomIndex = Math.floor(Math.random() * availableList.length); const namaLengkap = availableList.splice(randomIndex, 1)[0]; namaHasilEl.textContent = namaLengkap; namaHasilEl.classList.remove('placeholder'); copyBtn.disabled = false; }
         initializePools();
-
-        regionSelect.addEventListener('change', () => {
-            namaHasilEl.textContent = 'HEUNCEUT BEREUM';
-            namaHasilEl.classList.add('placeholder');
-            copyBtn.disabled = true;
-        });
-
+        regionSelect.addEventListener('change', () => { namaHasilEl.textContent = 'HEUNCEUT BEREUM'; namaHasilEl.classList.add('placeholder'); copyBtn.disabled = true; });
         function copyNama() { if (copyBtn.disabled) return; navigator.clipboard.writeText(namaHasilEl.textContent).then(() => { notifikasiEl.classList.add('show'); setTimeout(() => { notifikasiEl.classList.remove('show'); }, 2000); }).catch(err => { console.error('Gagal menyalin: ', err); alert('Oops, gagal menyalin nama.'); }); }
-        
         generateBtn.addEventListener('click', generateNama); 
         copyBtn.addEventListener('click', copyNama);
-
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('Service worker terdaftar.')).catch(err => console.log('Service worker gagal terdaftar:', err)); }); }
     </script>
 </body>
