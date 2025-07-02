@@ -128,47 +128,64 @@
         const copyBtn = document.getElementById('copy-btn');
         const notifikasiEl = document.getElementById('notifikasi');
 
-        // Membuat 'copy' dari database untuk melacak nama yang tersedia.
-        // JSON.parse(JSON.stringify(...)) adalah cara cepat untuk membuat deep copy.
-        const availableNames = JSON.parse(JSON.stringify(databaseNama));
+        // 'namePools' adalah state untuk menyimpan daftar nama yang tersedia untuk setiap pilihan.
+        const namePools = {};
+
+        // Fungsi untuk menginisialisasi atau mereset 'kolam' nama.
+        function initializePools() {
+            for (const region in databaseNama) {
+                namePools[region] = {
+                    // Salin daftar nama laki-laki
+                    laki: [...databaseNama[region].laki],
+                    // Salin daftar nama perempuan
+                    perempuan: [...databaseNama[region].perempuan],
+                    // Gabungkan keduanya untuk pilihan 'acak'
+                    acak: [...databaseNama[region].laki, ...databaseNama[region].perempuan]
+                };
+            }
+        }
+        
+        // Fungsi untuk mengisi ulang kolam nama yang sudah habis
+        function resetNamePool(region, gender) {
+            console.log(`Pool untuk ${region} - ${gender} habis. Mengisi ulang...`);
+            if (gender === 'acak') {
+                // Jika 'acak', gabungkan lagi dari database utama
+                namePools[region][gender] = [...databaseNama[region].laki, ...databaseNama[region].perempuan];
+            } else {
+                // Jika spesifik, salin lagi dari database utama
+                namePools[region][gender] = [...databaseNama[region][gender]];
+            }
+        }
 
         function generateNama() {
             const region = regionSelect.value;
             const gender = document.querySelector('input[name="gender"]:checked').value;
-            let namaLengkap;
-
-            if (gender === 'acak') {
-                // Untuk gender 'acak', kita tetap pakai logika lama: random murni.
-                const regionData = databaseNama[region];
-                const listNama = Math.random() < 0.5 ? regionData.laki : regionData.perempuan;
-                namaLengkap = listNama[Math.floor(Math.random() * listNama.length)];
-            } else {
-                // Untuk gender spesifik (laki/perempuan), kita pakai logika baru.
-                let availableList = availableNames[region][gender];
-                
-                // 1. Cek apakah daftar nama yang tersedia sudah habis.
-                if (availableList.length === 0) {
-                    console.log(`Semua nama untuk ${region} - ${gender} sudah terpakai. Mengisi ulang...`);
-                    // 2. Jika habis, isi ulang daftar nama dari database utama.
-                    //    Kita menggunakan spread operator `[...]` untuk membuat copy baru.
-                    availableNames[region][gender] = [...databaseNama[region][gender]];
-                    availableList = availableNames[region][gender];
-                }
-
-                // 3. Ambil nama secara acak dari daftar yang TERSEDIA.
-                const randomIndex = Math.floor(Math.random() * availableList.length);
-                
-                // 4. Gunakan `splice` untuk MENGAMBIL nama dari array, sekaligus MENGHAPUSNYA.
-                //    Splice mengembalikan array berisi elemen yg dihapus, jadi kita ambil elemen pertamanya [0].
-                namaLengkap = availableList.splice(randomIndex, 1)[0];
-            }
             
+            // Cek apakah pool untuk pilihan saat ini (misal: 'indonesia.laki') sudah habis
+            if (namePools[region][gender].length === 0) {
+                // Jika habis, panggil fungsi untuk mengisi ulang pool tersebut
+                resetNamePool(region, gender);
+            }
+
+            // Ambil daftar nama yang tersedia dari pool yang sesuai
+            const availableList = namePools[region][gender];
+
+            // Ambil nama secara acak dari daftar yang TERSEDIA
+            const randomIndex = Math.floor(Math.random() * availableList.length);
+            
+            // Gunakan `splice` untuk MENGAMBIL nama dari array, sekaligus MENGHAPUSNYA dari pool
+            const namaLengkap = availableList.splice(randomIndex, 1)[0];
+            
+            // Tampilkan hasilnya di UI
             namaHasilEl.textContent = namaLengkap;
             namaHasilEl.classList.remove('placeholder');
             copyBtn.disabled = false;
         }
-
+        
         // --- AKHIR PERUBAHAN LOGIKA ---
+
+        // Panggil fungsi inisialisasi saat halaman pertama kali dimuat
+        initializePools();
 
         // Reset tampilan jika region diubah
         regionSelect.addEventListener('change', () => {
@@ -178,7 +195,9 @@
         });
 
         function copyNama() { if (copyBtn.disabled) return; navigator.clipboard.writeText(namaHasilEl.textContent).then(() => { notifikasiEl.classList.add('show'); setTimeout(() => { notifikasiEl.classList.remove('show'); }, 2000); }).catch(err => { console.error('Gagal menyalin: ', err); alert('Oops, gagal menyalin nama.'); }); }
-        generateBtn.addEventListener('click', generateNama); copyBtn.addEventListener('click', copyNama);
+        
+        generateBtn.addEventListener('click', generateNama); 
+        copyBtn.addEventListener('click', copyNama);
 
         // KODE PWA
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./service-worker.js').then(reg => console.log('Service worker terdaftar.')).catch(err => console.log('Service worker gagal terdaftar:', err)); }); }
