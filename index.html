@@ -101,7 +101,6 @@
     <div id="notifikasi" class="notif">Tersalin ke clipboard!</div>
 
     <script>
-        // --- STRUKTUR DATABASE BARU DENGAN REGION ---
         const databaseNama = {
             indonesia: {
                 laki: ["Budi Santoso", "Agus Wijaya", "Joko Susanto", "Eko Prasetyo", "Hendra Gunawan", "Arif Wibowo", "Rizky Firmansyah", "Aditya Nugroho", "Bayu Pratama", "Teguh Hidayat", "Dimas Setiawan", "Fajar Maulana", "Andi Saputra", "Yoga Permana", "David Kurniawan", "Ahmad Syah", "Dadan Ramdanii", "Andi Kusnandi", "Aditya Hikmatiar", "Randy Putra", "Afiw Firmansyah", "Putra Arbani", "Rafil Maulana", "Ujang Kurniawan", "Rama Mahendra", "Angga Saputra", "Sandi Permadi", "Angga Pillian", "Dhika Ahmad Maulana", "Egi Yanuar", "Rizky Maulana", "Bang Aland", "Hiro Sanjaya", "Agung Gunandar", "Alfin Imadudin", "Andre Yanuar Utami", "Paldi Alip Utama", "Ragil Mahardika", "Reza Syahrul Maulana", "Rizal Fahrurozi", "Desta putra aryandi", "Apid Mais", "Irsan Jaelani", "Irman Maulana", "Amar Amrullah", "Yudha Sinayudha", "Andri Ramadhani", "Tazji Adam", "Fadhlir Satriana", "Wawan Kurniawan", "Samsul Maarif", "Irfan Hasbalah", "Nizar Kurniawan", "Andi Nurhidayat", "Ahmad Dani", "Eko Awandi", "Yoga Pratama Syaputra", "Farhan Muhamad", "Fikri Mauludi", "Galih Gumilang", "Padilah Fadry", "Aguz Hendar", "Adi Eka Prasetya", "Wahyu Sudrajat", "Arul Ardiansyah", "Fitra Andika Winata", "Rizal Alfeandra", "Dian Nurhidayat", "Fahmi Lukman", "Zikri Nurjaman", "Muhammad Wildan", "Gilang Purnama", "Teddy Supriyaddy", "Rian Oktapiana", "Rahmat Fauzi", "Sendi Darmawan", "Faisal Ramdani", "Aep Saepulloh", "Hendra Mulyanto", "Irham Ahmad", "Rian Prayogi", "Rendi Eriansyah", "Jujun Junaedi", "Azis Setiawan", "Fauzi Ridwan", "Indra Wiguna", "Ripan Adriansyah", "Raihan Amar Ramadhan", "Samsul Ikhwan", "Gihad Relizia Khotib", "Saepul Kalaider", "Andri Maulana", "Rizky Saputra", "Sansan Mutamar Sidik", "Dani Maulana", "Ade Ilham", "Jajang Herdiansyah", "Dikri Faujan", "Husni Ramdhan", "Febri Pirmansyah", "Ryan Gunawan", "Erwin Maulana", "Andriansyah Hermawan", "Afrizal Pratama", "Rahmat Hidayat", "Gani Abdulrahman", "Farhan Ardiansyah", "Ricky Juliansyah", "Rahman Kautsar", "Dimas Saputra", "Aldy Nugraha", "Sona Maulana", "Fitrah Maulana", "Kakang Rudianto", "Ahmad Jufrianto", "Edo Febriansyah", "Rezaldi Permadi", "Henhen Herdiana", "Zulfikli Lukmansyah", "Dedi Kusnandar", "Adam Alis", "Adzikry Fadillah", "Ryan Kurnia", "Febri Hariyadi", "Dimas Hehanusa", "Ezra Wallian", "Fitrul Rustapa", "Arsan Maulana", "Raufa Aghastya", "Zidan Heryadi", "Alvin Kurniawan", "Deva Budiyana", "Nazriel Firmansyah", "Fikri Firdaus", "Rafi Rizky", "Citra Naswa", "Fazri Agustina", "Aris Sutrisno", "Bagus Cahaya", "Farsya Arkaan", "Izmir Yandrika", "Zeynandra Yushar", "Nazriel Alfaro", "Iqbal Maulana", "Septian Hidayat", "Muhamad Hiro", "Hafizh Rizkianur", "Rizky Ridho", "Muhammad Ferarri", "Akbar Arjunsyah", "Firza Andika", "Rio Fahmi", "Raka Cahyana", "Hanif Sjahbandi", "Aditya Warman", "Syahrian Abimanyu", "Rayhan Hannan", "Doni Alamsyah", "Agi Firmansyah", "Yandi Sofyan"],
@@ -121,19 +120,17 @@
             }
         };
 
-        // --- LOGIKA GENERATOR BARU YANG LEBIH CANGGIH ---
+        // --- AWAL PERUBAHAN LOGIKA SESUAI PERMINTAAN ---
+
         const regionSelect = document.getElementById('region-select');
         const namaHasilEl = document.getElementById('nama-hasil');
         const generateBtn = document.getElementById('generate-btn');
         const copyBtn = document.getElementById('copy-btn');
         const notifikasiEl = document.getElementById('notifikasi');
 
-        let currentIndices = {
-            indonesia: { laki: 0, perempuan: 0 },
-            japan: { laki: 0, perempuan: 0 },
-            usa: { laki: 0, perempuan: 0 },
-            korea: { laki: 0, perempuan: 0 }
-        };
+        // Membuat 'copy' dari database untuk melacak nama yang tersedia.
+        // JSON.parse(JSON.stringify(...)) adalah cara cepat untuk membuat deep copy.
+        const availableNames = JSON.parse(JSON.stringify(databaseNama));
 
         function generateNama() {
             const region = regionSelect.value;
@@ -141,20 +138,37 @@
             let namaLengkap;
 
             if (gender === 'acak') {
+                // Untuk gender 'acak', kita tetap pakai logika lama: random murni.
                 const regionData = databaseNama[region];
                 const listNama = Math.random() < 0.5 ? regionData.laki : regionData.perempuan;
                 namaLengkap = listNama[Math.floor(Math.random() * listNama.length)];
             } else {
-                const listNama = databaseNama[region][gender];
-                const currentIndex = currentIndices[region][gender];
-                namaLengkap = listNama[currentIndex];
-                currentIndices[region][gender] = (currentIndex + 1) % listNama.length;
+                // Untuk gender spesifik (laki/perempuan), kita pakai logika baru.
+                let availableList = availableNames[region][gender];
+                
+                // 1. Cek apakah daftar nama yang tersedia sudah habis.
+                if (availableList.length === 0) {
+                    console.log(`Semua nama untuk ${region} - ${gender} sudah terpakai. Mengisi ulang...`);
+                    // 2. Jika habis, isi ulang daftar nama dari database utama.
+                    //    Kita menggunakan spread operator `[...]` untuk membuat copy baru.
+                    availableNames[region][gender] = [...databaseNama[region][gender]];
+                    availableList = availableNames[region][gender];
+                }
+
+                // 3. Ambil nama secara acak dari daftar yang TERSEDIA.
+                const randomIndex = Math.floor(Math.random() * availableList.length);
+                
+                // 4. Gunakan `splice` untuk MENGAMBIL nama dari array, sekaligus MENGHAPUSNYA.
+                //    Splice mengembalikan array berisi elemen yg dihapus, jadi kita ambil elemen pertamanya [0].
+                namaLengkap = availableList.splice(randomIndex, 1)[0];
             }
             
             namaHasilEl.textContent = namaLengkap;
             namaHasilEl.classList.remove('placeholder');
             copyBtn.disabled = false;
         }
+
+        // --- AKHIR PERUBAHAN LOGIKA ---
 
         // Reset tampilan jika region diubah
         regionSelect.addEventListener('change', () => {
