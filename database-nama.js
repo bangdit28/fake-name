@@ -13,6 +13,6 @@ const databaseNama = {
     },
     korea: {
         laki: ["Kim Min-jun", "Lee Seo-joon", "Park Do-yun", "Choi Ha-joon", "Jeong Eun-woo", "Kang Ji-ho", "Yoon Ye-jun", "Jang Si-woo", "Han Ju-won", "Im Woo-jin"],
-        perempuan: ["Kim Seo-yeon", "Lee Ji-an", "Park Ha-eun", "Choi Ah-rin", "Jeong Seo-ah", "Kang Ha-yoon", "Yoon A-young", "Jang Ji-woo", "Han Seo-yoon", "Im Si-ah"]
+        perempuan: ["Kim Seo-yeon", "Lee Ji-an", "Park Ha-eun", "Choi Ah-rin", "Jeong Seo-ah", "Kang Ha-yoon", "Yoon A-young", "Jang Ji-woo", "Han Seo-yoon", "Im Si-ah", "Kim Min-ji", "Park Seo-yeon", "Lee Ji-eun", "Choi Soo-min", "Han Eun-jung", "Jung Hye-jin", "Yoon Ah-reum", "Kang Da-hye", "Shin Yeon-woo", "Song Ji-hye", "Seo Na-kyung", "Bae Eun-seo", "Lim Ha-yoon", "Hwang Mi-na", "Oh Seul-gi", "Nam Ji-soo", "Baek Hye-won", "Ha Eun-joo", "Joo Na-ri", "Yoo In-ha", "Kim Da-bin", "Seo Ji-yoon", "Lee Seol-ah", "Kwon Yu-ri", "Cho Hae-rin", "Ryu Yeon-hee", "Hong Ji-ah", "Moon So-hee", "Im Ga-yeon"]
     }
 };
